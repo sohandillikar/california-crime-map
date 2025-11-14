@@ -6,8 +6,8 @@ interface LogoProps {
 
 export default function Logo({ variant = 'dark' }: LogoProps) {
   const isLight = variant === 'light';
-  const textColor = isLight ? 'text-brown-900' : 'text-white';
-  const subtextColor = isLight ? 'text-brown-600' : 'text-brown-200';
+  const textColor = isLight ? 'text-brown-500' : 'text-white';
+  const subtextColor = isLight ? 'text-brown-300' : 'text-brown-200';
   
   return (
     <Link to="/" className="flex items-center space-x-2 sm:space-x-3 group">
