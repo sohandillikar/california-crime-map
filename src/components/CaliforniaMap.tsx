@@ -93,7 +93,7 @@ export default function CaliforniaMap() {
     }
   };
 
-  const getCountyStyle = (feature: any) => {
+  const getCountyStyle = () => {
     return {
       fillColor: '#8d6e63', // brown-400
       weight: 2,
