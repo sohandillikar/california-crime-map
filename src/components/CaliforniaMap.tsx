@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
+import { MapContainer, GeoJSON, useMap } from 'react-leaflet';
 import type { GeoJsonObject } from 'geojson';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -158,6 +158,12 @@ export default function CaliforniaMap() {
     );
   }
 
+  // California bounding box: Southwest [32.5, -124.5] to Northeast [42.0, -114.0]
+  const californiaBounds: [[number, number], [number, number]] = [
+    [32.5, -124.5], // Southwest
+    [42.0, -114.0], // Northeast
+  ];
+
   return (
     <div className="w-full h-[600px] relative rounded-lg overflow-hidden border border-brown-300 shadow-lg">
       <MapContainer
@@ -165,13 +171,11 @@ export default function CaliforniaMap() {
         zoom={6}
         style={{ height: '100%', width: '100%' }}
         scrollWheelZoom={true}
+        maxBounds={californiaBounds}
+        maxBoundsViscosity={1.0}
         className="z-0"
       >
         <MapController center={[36.7783, -119.4179]} />
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
         {geoJsonData && (
           <GeoJSON
             data={geoJsonData}
