@@ -43,12 +43,18 @@ export default function CountyPage() {
                         <p className="text-sm text-brown-600 mb-1">Misdemeanors per 1,000 Population</p>
                         <p className="text-3xl font-bold text-brown-900">{county.misdeamors_per_1k_pop.toFixed(2)}</p>
                       </div>
-                    </div>
-                    <div className="mt-4 p-4 bg-white rounded border border-brown-200">
-                      <p className="text-sm text-brown-600 mb-1">Total Crimes per 1,000 Population</p>
-                      <p className="text-3xl font-bold text-brown-900">
-                        {(county.felonies_per_1k_pop + county.misdeamors_per_1k_pop).toFixed(2)}
-                      </p>
+                      <div className="p-4 bg-white rounded border border-brown-200">
+                        <p className="text-sm text-brown-600 mb-1">Total Crimes per 1,000 Population</p>
+                        <p className="text-3xl font-bold text-brown-900">
+                          {(county.felonies_per_1k_pop + county.misdeamors_per_1k_pop).toFixed(2)}
+                        </p>
+                      </div>
+                      <div className="p-4 bg-white rounded border border-brown-200">
+                        <p className="text-sm text-brown-600 mb-1">Population</p>
+                        <p className="text-3xl font-bold text-brown-900">
+                          {county.population.toLocaleString()}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>

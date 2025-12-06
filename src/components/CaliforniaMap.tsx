@@ -246,6 +246,7 @@ export default function CaliforniaMap() {
       tooltipContent = `
         <div style="text-align: center; line-height: 1.4;">
           <strong>${countyData.name}</strong><br/>
+          Population: ${countyData.population.toLocaleString()}<br/>
           Felonies: ${countyData.felonies_per_1k_pop.toFixed(2)} per 1k<br/>
           Misdemeanors: ${countyData.misdeamors_per_1k_pop.toFixed(2)} per 1k<br/>
           Year: ${countyData.year}
