@@ -42,20 +42,6 @@ export default function CountyPage() {
             <div className="prose prose-lg max-w-none">
               {county ? (
                 <div className="space-y-4">
-                  {/* Paragraph section */}
-                  {paragraphs && paragraphs.length > 0 && (
-                    <div className="mb-8">
-                      {paragraphs.map((paragraph, index) => (
-                        <p
-                          key={index}
-                          className="text-brown-700 leading-relaxed mb-6 last:mb-0"
-                        >
-                          {paragraph}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-                  
                   {/* Statistics cards */}
                   <div className="mt-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -81,6 +67,20 @@ export default function CountyPage() {
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Paragraph section */}
+                  {paragraphs && paragraphs.length > 0 && (
+                    <div className="mb-8">
+                      {paragraphs.map((paragraph, index) => (
+                        <p
+                          key={index}
+                          className="text-brown-700 leading-relaxed mb-6 last:mb-0"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <p className="text-xl text-brown-700 leading-relaxed">
