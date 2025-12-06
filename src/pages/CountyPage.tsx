@@ -1,13 +1,22 @@
 import { useParams } from 'react-router-dom';
+import { useMemo } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
 import { slugToCounty } from '../data/counties';
+import { getCountyParagraph, splitParagraphs } from '../data/paragraphs';
 
 export default function CountyPage() {
   const { countySlug } = useParams<{ countySlug: string }>();
   const county = countySlug ? slugToCounty(countySlug) : undefined;
   const countyName = county?.name || 'Unknown County';
+
+  // Load and parse paragraph text
+  const paragraphs = useMemo(() => {
+    const paragraphText = getCountyParagraph(countySlug);
+    if (!paragraphText) return null;
+    return splitParagraphs(paragraphText);
+  }, [countySlug]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -33,6 +42,21 @@ export default function CountyPage() {
             <div className="prose prose-lg max-w-none">
               {county ? (
                 <div className="space-y-4">
+                  {/* Paragraph section */}
+                  {paragraphs && paragraphs.length > 0 && (
+                    <div className="mb-8">
+                      {paragraphs.map((paragraph, index) => (
+                        <p
+                          key={index}
+                          className="text-brown-700 leading-relaxed mb-6 last:mb-0"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* Statistics cards */}
                   <div className="mt-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="p-4 bg-white rounded border border-brown-200">
