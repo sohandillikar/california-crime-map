@@ -10,6 +10,13 @@ import Tabs from './components/Tabs';
 function HomePage() {
   const tabs = [
     {
+      id: 'introduction',
+      label: 'Introduction',
+      content: (
+        <div className="text-brown-700">This is where the introduction will go.</div>
+      ),
+    },
+    {
       id: 'map',
       label: 'Interactive Map',
       content: (
@@ -49,7 +56,7 @@ function HomePage() {
       <HeroSection />
       <main className="flex-grow bg-brown-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <Tabs tabs={tabs} defaultTab="map" />
+          <Tabs tabs={tabs} defaultTab="introduction" />
         </div>
       </main>
       <Footer />
