@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
+import CountyCrimeChart from '../components/CountyCrimeChart';
 import { slugToCounty } from '../data/counties';
 import { getCountyParagraph, splitParagraphs } from '../data/paragraphs';
 
@@ -42,6 +43,9 @@ export default function CountyPage() {
             <div className="prose prose-lg max-w-none">
               {county ? (
                 <div className="space-y-4">
+                  {/* Crime trends chart */}
+                  <CountyCrimeChart countySlug={countySlug} />
+                  
                   {/* Statistics cards */}
                   <div className="mt-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

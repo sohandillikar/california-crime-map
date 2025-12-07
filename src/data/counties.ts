@@ -1,4 +1,4 @@
-const YEAR = 2024;
+export const YEAR = 2024;
 
 // Load all dataset CSV files using Vite's import.meta.glob
 const datasetModules = import.meta.glob('/src/data/counties/*/dataset.csv', {
