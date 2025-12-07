@@ -6,7 +6,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from 'recharts';
 import { getCountyChartData } from '../data/chartData';
@@ -86,10 +85,6 @@ export default function CountyCrimeChart({ countySlug }: CountyCrimeChartProps) 
             }}
             labelStyle={{ color: '#3e2723', fontWeight: 'bold' }}
             formatter={(value: number) => value.toFixed(2)}
-          />
-          <Legend
-            wrapperStyle={{ paddingTop: '20px' }}
-            iconType="line"
           />
           {/* Felonies Actual */}
           <Line

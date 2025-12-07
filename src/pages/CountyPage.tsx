@@ -4,6 +4,7 @@ import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
 import CountyCrimeChart from '../components/CountyCrimeChart';
+import CountyOffenseTypesChart from '../components/CountyOffenseTypesChart';
 import { slugToCounty } from '../data/counties';
 import { getCountyParagraph, splitParagraphs } from '../data/paragraphs';
 
@@ -45,6 +46,9 @@ export default function CountyPage() {
                 <div className="space-y-4">
                   {/* Crime trends chart */}
                   <CountyCrimeChart countySlug={countySlug} />
+                  
+                  {/* Offense types chart */}
+                  <CountyOffenseTypesChart countySlug={countySlug} />
                   
                   {/* Statistics cards */}
                   <div className="mt-6">
