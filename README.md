@@ -23,16 +23,7 @@ npm --version
    npm run dev
    ```
 
-3. Build for production:
-
-   ```bash
-   npm run build
-   ```
-
-4. Preview production build:
-   ```bash
-   npm run preview
-   ```
+3. Open [http://localhost:5173](http://localhost:5173) in your browser
 
 ### Tech Stack
 
