@@ -7,6 +7,7 @@ import CountyCrimeCountsChart from '../components/CountyCrimeCountsChart';
 import CountyOffenseTypeCountsChart from '../components/CountyOffenseTypeCountsChart';
 import CountyCrimeChart from '../components/CountyCrimeChart';
 import CountyOffenseTypesChart from '../components/CountyOffenseTypesChart';
+import CountyPopulationChart from '../components/CountyPopulationChart';
 import { slugToCounty } from '../data/counties';
 import { getCountyParagraph, splitParagraphs } from '../data/paragraphs';
 
@@ -53,6 +54,9 @@ export default function CountyPage() {
                   {/* Per 1000 population charts */}
                   <CountyCrimeChart countySlug={countySlug} />
                   <CountyOffenseTypesChart countySlug={countySlug} />
+                  
+                  {/* Population chart */}
+                  <CountyPopulationChart countySlug={countySlug} />
                   
                   {/* Statistics cards */}
                   <div className="mt-6">

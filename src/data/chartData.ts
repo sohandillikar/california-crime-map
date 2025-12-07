@@ -16,6 +16,22 @@ Object.entries(datasetModules).forEach(([path, content]) => {
   }
 });
 
+// Load population_counts.csv using Vite's import.meta.glob
+const populationModules = import.meta.glob('/src/data/counties/population_counts.csv', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+});
+
+// Get population CSV content
+let populationCSVContent = '';
+Object.entries(populationModules).forEach(([, content]) => {
+  const textContent = typeof content === 'string' ? content : (content as any)?.default || '';
+  if (textContent) {
+    populationCSVContent = textContent;
+  }
+});
+
 // Helper function to parse CSV line, handling quoted values
 function parseCSVLine(line: string): string[] {
   const result: string[] = [];
@@ -67,6 +83,11 @@ export interface OffenseTypeCountsChartDataPoint {
   drug: number;
   sex: number;
   other: number;
+}
+
+export interface PopulationChartDataPoint {
+  year: number;
+  population: number;
 }
 
 /**
@@ -357,6 +378,64 @@ export function getCountyOffenseTypeCountsChartData(countySlug: string | undefin
     return dataPoints;
   } catch (error) {
     console.error(`Error parsing offense type counts chart data for ${countySlug}:`, error);
+    return [];
+  }
+}
+
+/**
+ * Get chart data for a county showing population trends from 2010-2024
+ * @param countySlug - The county slug (e.g., 'alameda', 'los-angeles')
+ * @returns Array of data points with year and population, or empty array if not found
+ */
+export function getCountyPopulationChartData(countySlug: string | undefined): PopulationChartDataPoint[] {
+  if (!countySlug || !populationCSVContent) return [];
+  
+  try {
+    const lines = populationCSVContent.split('\n').filter(line => line.trim());
+    if (lines.length === 0) return [];
+    
+    // Parse header to get year columns (2010-2024)
+    const headerLine = parseCSVLine(lines[0]);
+    const years: number[] = [];
+    for (let i = 1; i < headerLine.length; i++) {
+      const yearStr = headerLine[i].trim();
+      const year = parseInt(yearStr, 10);
+      if (!isNaN(year) && year >= 2010 && year <= 2024) {
+        years.push(year);
+      }
+    }
+    
+    // Find the row matching the county slug
+    const countyRow = lines.find(line => {
+      const row = parseCSVLine(line);
+      return row.length > 0 && row[0] === countySlug;
+    });
+    
+    if (!countyRow) return [];
+    
+    const rowColumns = parseCSVLine(countyRow);
+    const dataPoints: PopulationChartDataPoint[] = [];
+    
+    // Extract data for each year
+    for (let i = 0; i < years.length; i++) {
+      const year = years[i];
+      const colIndex = i + 1; // Column index (skip slug column)
+      
+      let population = 0;
+      if (colIndex < rowColumns.length) {
+        const value = rowColumns[colIndex].trim();
+        population = parseInt(value, 10) || 0;
+      }
+      
+      dataPoints.push({
+        year,
+        population,
+      });
+    }
+    
+    return dataPoints;
+  } catch (error) {
+    console.error(`Error parsing population chart data for ${countySlug}:`, error);
     return [];
   }
 }
