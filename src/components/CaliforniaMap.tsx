@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { counties, countyToSlug, getCountyByName, type County } from '../data/counties';
+import { counties, getCountyByName, type County } from '../data/counties';
 
 // Number of color bins for crime rate visualization
 const NUM_BINS = 5;
@@ -178,8 +178,10 @@ export default function CaliforniaMap() {
     if (countyName) {
       const normalizedName = normalizeCountyName(countyName);
       if (normalizedName) {
-        const slug = countyToSlug(normalizedName);
-        navigate(`/${slug}`);
+        const county = getCountyByName(normalizedName);
+        if (county) {
+          navigate(`/${county.slug}`);
+        }
       }
     }
   };

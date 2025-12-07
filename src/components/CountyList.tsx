@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { counties, countyToSlug } from '../data/counties';
+import { counties } from '../data/counties';
 
 interface CountyListProps {
   searchable?: boolean;
@@ -42,12 +42,11 @@ export default function CountyList({ searchable = true, className = '' }: County
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {filteredCounties.length > 0 ? (
           filteredCounties.map((county) => {
-            const slug = countyToSlug(county);
             const displayName = county.name.replace(/\s+County\s*$/i, '');
             return (
               <Link
                 key={county.name}
-                to={`/${slug}`}
+                to={`/${county.slug}`}
                 className="px-3 py-2 text-sm text-brown-700 hover:text-brown-900 hover:bg-brown-100 rounded-md transition-colors duration-200 border border-transparent hover:border-brown-200"
               >
                 {displayName}

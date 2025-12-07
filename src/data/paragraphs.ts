@@ -1,21 +1,19 @@
 // Load all paragraph files using Vite's import.meta.glob
-const paragraphModules = import.meta.glob('/src/data/paragraphs/*.txt', {
+const paragraphModules = import.meta.glob('/src/data/counties/*/paragraph.txt', {
   eager: true,
   query: '?raw',
   import: 'default',
 });
 
-// Create a map of county slug to paragraph text
 const paragraphMap = new Map<string, string>();
 
 // Process the imported modules and create the map
 Object.entries(paragraphModules).forEach(([path, content]) => {
-  // Extract filename from path (e.g., '/src/data/paragraphs/alameda.txt' -> 'alameda')
-  const filename = path.split('/').pop()?.replace('.txt', '');
-  // Handle both direct string content and wrapped content
+  const pathParts = path.split('/');
+  const countySlug = pathParts[pathParts.length - 2];
   const textContent = typeof content === 'string' ? content : (content as any)?.default || '';
-  if (filename && textContent) {
-    paragraphMap.set(filename, textContent);
+  if (countySlug && textContent) {
+    paragraphMap.set(countySlug, textContent);
   }
 });
 
