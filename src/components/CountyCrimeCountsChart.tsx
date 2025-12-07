@@ -8,16 +8,16 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { getCountyChartData } from '../data/chartData';
+import { getCountyCrimeCountsChartData } from '../data/chartData';
 import { YEAR } from '../data/counties';
 
-interface CountyCrimeChartProps {
+interface CountyCrimeCountsChartProps {
   countySlug: string | undefined;
 }
 
-export default function CountyCrimeChart({ countySlug }: CountyCrimeChartProps) {
+export default function CountyCrimeCountsChart({ countySlug }: CountyCrimeCountsChartProps) {
   const chartData = useMemo(() => {
-    return getCountyChartData(countySlug);
+    return getCountyCrimeCountsChartData(countySlug);
   }, [countySlug]);
 
   // Create combined data array with separate keys for actual and projected values
@@ -43,7 +43,7 @@ export default function CountyCrimeChart({ countySlug }: CountyCrimeChartProps) 
   return (
     <div className="mb-8 bg-white rounded-lg p-6 md:p-8 border border-brown-200">
       <h2 className="text-2xl font-bold text-brown-900 mb-6">
-        Crime Trends Over Time (per 1K Population)
+        Crime Counts Over Time
       </h2>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
@@ -71,7 +71,7 @@ export default function CountyCrimeChart({ countySlug }: CountyCrimeChartProps) 
             style={{ fontSize: '12px' }}
             tick={{ fill: '#5d4037' }}
             label={{
-              value: 'Per 1,000 Population',
+              value: 'Number of Offenses',
               angle: -90,
               position: 'insideLeft',
               style: { textAnchor: 'middle', fill: '#5d4037' },
@@ -84,13 +84,13 @@ export default function CountyCrimeChart({ countySlug }: CountyCrimeChartProps) 
               borderRadius: '4px',
             }}
             labelStyle={{ color: '#3e2723', fontWeight: 'bold' }}
-            formatter={(value: number) => value.toFixed(2)}
+            formatter={(value: number) => Math.round(value).toLocaleString()}
           />
           {/* Felonies Actual */}
           <Line
             type="monotone"
             dataKey="feloniesActual"
-            name="Total Felonies per 1K Population (Actual)"
+            name="Total Felonies (Actual)"
             stroke={feloniesColor}
             strokeWidth={2}
             dot={{ fill: feloniesColor, r: 4 }}
@@ -101,7 +101,7 @@ export default function CountyCrimeChart({ countySlug }: CountyCrimeChartProps) 
           <Line
             type="monotone"
             dataKey="feloniesProjected"
-            name="Total Felonies per 1K Population (Projected)"
+            name="Total Felonies (Projected)"
             stroke={feloniesColor}
             strokeWidth={2}
             strokeDasharray="8 5"
@@ -113,7 +113,7 @@ export default function CountyCrimeChart({ countySlug }: CountyCrimeChartProps) 
           <Line
             type="monotone"
             dataKey="misdemeanorsActual"
-            name="Misdemeanors per 1K Population (Actual)"
+            name="Misdemeanors (Actual)"
             stroke={misdemeanorsColor}
             strokeWidth={2}
             dot={{ fill: misdemeanorsColor, r: 4 }}
@@ -124,7 +124,7 @@ export default function CountyCrimeChart({ countySlug }: CountyCrimeChartProps) 
           <Line
             type="monotone"
             dataKey="misdemeanorsProjected"
-            name="Misdemeanors per 1K Population (Projected)"
+            name="Misdemeanors (Projected)"
             stroke={misdemeanorsColor}
             strokeWidth={2}
             strokeDasharray="8 5"
@@ -137,5 +137,4 @@ export default function CountyCrimeChart({ countySlug }: CountyCrimeChartProps) 
     </div>
   );
 }
-
 

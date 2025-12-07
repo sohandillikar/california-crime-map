@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
+import CountyCrimeCountsChart from '../components/CountyCrimeCountsChart';
+import CountyOffenseTypeCountsChart from '../components/CountyOffenseTypeCountsChart';
 import CountyCrimeChart from '../components/CountyCrimeChart';
 import CountyOffenseTypesChart from '../components/CountyOffenseTypesChart';
 import { slugToCounty } from '../data/counties';
@@ -44,10 +46,12 @@ export default function CountyPage() {
             <div className="prose prose-lg max-w-none">
               {county ? (
                 <div className="space-y-4">
-                  {/* Crime trends chart */}
-                  <CountyCrimeChart countySlug={countySlug} />
+                  {/* Raw counts charts */}
+                  <CountyCrimeCountsChart countySlug={countySlug} />
+                  <CountyOffenseTypeCountsChart countySlug={countySlug} />
                   
-                  {/* Offense types chart */}
+                  {/* Per 1000 population charts */}
+                  <CountyCrimeChart countySlug={countySlug} />
                   <CountyOffenseTypesChart countySlug={countySlug} />
                   
                   {/* Statistics cards */}

@@ -8,16 +8,16 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { getCountyOffenseTypesChartData } from '../data/chartData';
+import { getCountyOffenseTypeCountsChartData } from '../data/chartData';
 import { YEAR } from '../data/counties';
 
-interface CountyOffenseTypesChartProps {
+interface CountyOffenseTypeCountsChartProps {
   countySlug: string | undefined;
 }
 
-export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTypesChartProps) {
+export default function CountyOffenseTypeCountsChart({ countySlug }: CountyOffenseTypeCountsChartProps) {
   const chartData = useMemo(() => {
-    return getCountyOffenseTypesChartData(countySlug);
+    return getCountyOffenseTypeCountsChartData(countySlug);
   }, [countySlug]);
 
   // Create combined data array with separate keys for actual and projected values
@@ -42,7 +42,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
     return null;
   }
 
-  // Distinct colors that complement the brown theme
+  // Distinct colors that complement the brown theme (same as CountyOffenseTypesChart)
   const violentColor = '#991b1b'; // red-800 (deep burgundy)
   const propertyColor = '#155e75'; // cyan-800 (teal)
   const drugColor = '#166534'; // green-800 (forest green)
@@ -52,7 +52,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
   return (
     <div className="mb-8 bg-white rounded-lg p-6 md:p-8 border border-brown-200">
       <h2 className="text-2xl font-bold text-brown-900 mb-6">
-        Offense Types Over Time (per 1K Population)
+        Offense Type Counts Over Time
       </h2>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
@@ -80,7 +80,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
             style={{ fontSize: '12px' }}
             tick={{ fill: '#5d4037' }}
             label={{
-              value: 'Per 1,000 Population',
+              value: 'Number of Offenses',
               angle: -90,
               position: 'insideLeft',
               style: { textAnchor: 'middle', fill: '#5d4037' },
@@ -93,13 +93,13 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
               borderRadius: '4px',
             }}
             labelStyle={{ color: '#3e2723', fontWeight: 'bold' }}
-            formatter={(value: number) => value.toFixed(2)}
+            formatter={(value: number) => Math.round(value).toLocaleString()}
           />
           {/* Violent Offenses Actual */}
           <Line
             type="monotone"
             dataKey="violentActual"
-            name="Violent Offenses per 1K Population (Actual)"
+            name="Violent Offenses (Actual)"
             stroke={violentColor}
             strokeWidth={2}
             dot={{ fill: violentColor, r: 4 }}
@@ -110,7 +110,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
           <Line
             type="monotone"
             dataKey="violentProjected"
-            name="Violent Offenses per 1K Population (Projected)"
+            name="Violent Offenses (Projected)"
             stroke={violentColor}
             strokeWidth={2}
             strokeDasharray="10 5"
@@ -122,7 +122,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
           <Line
             type="monotone"
             dataKey="propertyActual"
-            name="Property Offenses per 1K Population (Actual)"
+            name="Property Offenses (Actual)"
             stroke={propertyColor}
             strokeWidth={2}
             dot={{ fill: propertyColor, r: 4 }}
@@ -133,7 +133,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
           <Line
             type="monotone"
             dataKey="propertyProjected"
-            name="Property Offenses per 1K Population (Projected)"
+            name="Property Offenses (Projected)"
             stroke={propertyColor}
             strokeWidth={2}
             strokeDasharray="10 5"
@@ -145,7 +145,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
           <Line
             type="monotone"
             dataKey="drugActual"
-            name="Drug Offenses per 1K Population (Actual)"
+            name="Drug Offenses (Actual)"
             stroke={drugColor}
             strokeWidth={2}
             dot={{ fill: drugColor, r: 4 }}
@@ -156,7 +156,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
           <Line
             type="monotone"
             dataKey="drugProjected"
-            name="Drug Offenses per 1K Population (Projected)"
+            name="Drug Offenses (Projected)"
             stroke={drugColor}
             strokeWidth={2}
             strokeDasharray="10 5"
@@ -168,7 +168,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
           <Line
             type="monotone"
             dataKey="sexActual"
-            name="Sex Offenses per 1K Population (Actual)"
+            name="Sex Offenses (Actual)"
             stroke={sexColor}
             strokeWidth={2}
             dot={{ fill: sexColor, r: 4 }}
@@ -179,7 +179,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
           <Line
             type="monotone"
             dataKey="sexProjected"
-            name="Sex Offenses per 1K Population (Projected)"
+            name="Sex Offenses (Projected)"
             stroke={sexColor}
             strokeWidth={2}
             strokeDasharray="10 5"
@@ -191,7 +191,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
           <Line
             type="monotone"
             dataKey="otherActual"
-            name="Other Offenses per 1K Population (Actual)"
+            name="Other Offenses (Actual)"
             stroke={otherColor}
             strokeWidth={2}
             dot={{ fill: otherColor, r: 4 }}
@@ -202,7 +202,7 @@ export default function CountyOffenseTypesChart({ countySlug }: CountyOffenseTyp
           <Line
             type="monotone"
             dataKey="otherProjected"
-            name="Other Offenses per 1K Population (Projected)"
+            name="Other Offenses (Projected)"
             stroke={otherColor}
             strokeWidth={2}
             strokeDasharray="10 5"
