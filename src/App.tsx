@@ -18,6 +18,16 @@ function HomePage() {
             <h2 className="text-2xl font-semibold text-brown-900 mb-4 text-center">
               Introduction
             </h2>
+            <div className="w-full max-w-4xl mx-auto mb-6">
+              <div className="relative w-full" style={{ paddingBottom: '75%' }}>
+                <iframe
+                  src="https://drive.google.com/file/d/1rNYlkQ9kFj9YtKcDKseiKRSlVLceLQCd/preview"
+                  className="absolute top-0 left-0 w-full h-full rounded-lg"
+                  allow="autoplay"
+                  allowFullScreen
+                />
+              </div>
+            </div>
             <p className="text-brown-700 leading-relaxed">
               Feeling that your family is safe is important for one's well-being, and thus is a crucial factor when deciding on where to settle down. However, doing research on crime data for every single county can be a long and tedious process. Our website seeks to trivialize this process by instantly presenting all necessary insights to any viewer of the webpage, as a fully interactive map. This not only greatly saves time for everyone, but also gives peace of mind that they can make a life-changing decision backed by solid evidence of metrics and trends, and not purely based on hearsay.
             </p>
